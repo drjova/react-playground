@@ -1,12 +1,13 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { increase, decrease } from '../actions/count'
+import React from 'react';
+import { connect } from 'react-redux';
+import { increase, decrease } from '../actions/count';
 
 function Home({ number, increase, decrease }) {
   return (
     <div>
       Some state changes:
       {number}
+      <br/>
       <button onClick={() => increase(1)}>Increase</button>
       <button onClick={() => decrease(1)}>Decrease</button>
     </div>
@@ -14,6 +15,6 @@ function Home({ number, increase, decrease }) {
 }
 
 export default connect(
-  state => ({ number: state.count.number }),
+  state => ({ number: state.number || 0 }),
   { increase, decrease }
-)(Home)
+)(Home);

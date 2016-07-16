@@ -13,3 +13,10 @@ export function decrease(n) {
     amount: n
   };
 }
+
+export function zozelaki(msg) {
+  return {
+    type: 'ZOZELAKI',
+    msg: msg
+  };
+}
