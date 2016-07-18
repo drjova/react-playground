@@ -8,13 +8,30 @@ function Home({ number, increase, decrease }) {
       Some state changes:
       {number}
       <br/>
-      <button onClick={() => increase(1)}>Increase</button>
-      <button onClick={() => decrease(1)}>Decrease</button>
+      <button onClick={e => {
+          e.preventDefault()
+          increase(1)
+        }}>Increase</button>
+      <button onClick={e => {
+          e.preventDefault()
+          decrease(1)
+        }}>Decrease</button>
     </div>
   )
 }
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    increase: n => {
+      dispatch(increase(n));
+    },
+    decrease: n => {
+      dispatch(decrease(n));
+    }
+  }
+}
+
 export default connect(
-  state => ({ number: state.number || 0 }),
-  { increase, decrease }
+  state => ({ number: state.count.number }),
+  mapDispatchToProps
 )(Home);

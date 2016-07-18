@@ -1,7 +1,7 @@
 import { INCREASE, DECREASE } from '../constants';
 
 const initialState = {
-  number: 1
+  number: 1,
 };
 
 export default function(state = initialState, action) {

@@ -9,25 +9,28 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-import * as reducers from './reducers';
+// Reducers
+import count from './reducers/count';
+// Components
 import { App, Home, Foo, Bar } from './components';
 
 const reducer = combineReducers({
-  ...reducers,
+  count,
   routing: routerReducer
-})
+});
 
 const DevTools = createDevTools(
   <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
     <LogMonitor theme="tomorrow" preserveScrollTop={false} />
   </DockMonitor>
-)
+);
 
 const store = createStore(
   reducer,
   DevTools.instrument()
-)
-const history = syncHistoryWithStore(browserHistory, store)
+);
+
+const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -43,4 +46,4 @@ ReactDOM.render(
     </div>
   </Provider>,
   document.getElementById('mount')
-)
+);
