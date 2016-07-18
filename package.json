@@ -8,13 +8,15 @@
   },
   "author": "Harris Tzovanakis <me@drjova.com> (http://drjova.com)",
   "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.3.0",
     "react-router": "^2.0.0",
     "react-router-redux": "^4.0.0",
     "redux": "^3.2.1",
-    "redux-api-middleware": "^1.0.2"
+    "redux-api-middleware": "^1.0.2",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
