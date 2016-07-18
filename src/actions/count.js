@@ -5,7 +5,9 @@ import {
   DECREASE,
   INCREASE,
   RECEIVE_COUNTRIES,
-  REQUEST_COUNTRIES
+  REQUEST_COUNTRIES,
+  ADD_COUNTRY,
+  REMOVE_COUNTRY
 } from '../constants';
 
 
@@ -66,4 +68,18 @@ export function getCountriesIfNeeded() {
       return dispatch(fetchCountries());
     }
   };
+}
+
+export function addCountry(name) {
+  return {
+    type: ADD_COUNTRY,
+    name: name
+  }
+}
+
+export function removeCountry(name) {
+  return {
+    type: REMOVE_COUNTRY,
+    name: name
+  }
 }
