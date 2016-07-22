@@ -47,20 +47,19 @@ class Home extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    increase: n => {
-      dispatch(increase(n));
-    },
-    decrease: n => {
-      dispatch(decrease(n));
-    }
-  }
-}
+//const mapDispatchToProps = (dispatch, ownProps) => {
+  //return {
+    //increase: n => {
+      //dispatch(increase(n));
+    //},
+    //decrease: n => {
+      //dispatch(decrease(n));
+    //}
+  //}
+//}
 
 export default connect(
   state => {
-    console.log(state.countries);
     return {
       isFetching: state.countries.isFetching || false,
       countries: state.countries.items || [],

@@ -30,7 +30,7 @@ export function requestCountries() {
   return {
     type: REQUEST_COUNTRIES
   };
-};
+}
 
 // Receive countries action
 export function receiveCountries(json) {
@@ -74,12 +74,12 @@ export function addCountry(name) {
   return {
     type: ADD_COUNTRY,
     name: name
-  }
+  };
 }
 
 export function removeCountry(name) {
   return {
     type: REMOVE_COUNTRY,
     name: name
-  }
+  };
 }

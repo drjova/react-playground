@@ -6,46 +6,73 @@ import {
   removeCountry
 } from '../actions/count';
 
-export default class Item extends Component {
+class Items extends Component {
 
   constructor(props) {
     super(props);
-    this.handleAddCountry = this.handleAddCountry.bind(this);
-    this.handleRemoveCountry = this.handleRemoveCountry.bind(this);
+    this.triggerClick = this.triggerClick.bind(this);
   }
 
-  handleAddCountry(e) {
-    console.log('Clicked', e);
-    this.props.dispatch(addCountry());
+  triggerClick(params) {
+    this.props.dispatch(params);
   }
 
-  handleRemoveCountry(name) {
-    this.props.dispatch(removeCountry(name));
+  isChecked(value) {
+    return this.props.visited.indexOf(value) > -1;
   }
 
   render() {
+    const { items, visited, count } = this.props;
     return (
-      <ul>
-        {this.props.items.map((item, i) =>
-          <li key={item.name}>
-            <input
-              ref="checkbox"
-              type="checkbox"
-              onChange={this.handleAddCountry} />
-              {item.name}
-            </li>
-        )}
-      </ul>
+      <div>
+        <h2>{count}</h2>
+        <ul>
+          {items.map((item, i) =>
+            <Item isChecked={this.isChecked(item.name)} trigger={this.triggerClick} item={item} key={item.name} />
+          )}
+        </ul>
+      </div>
+    )
+  }
+}
+
+class Item extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.isSelected = this.props.isChecked;
+  }
+
+  handleClick(e) {
+    this.props.trigger(
+      (this.isSelected) ? removeCountry(e.target.value) : addCountry(e.target.value)
+    );
+    this.isSelected = e.target.checked;
+  }
+
+  render() {
+    const {item, key, isChecked} = this.props;
+    return (
+      <li key={key}>
+        <input
+          ref="checkbox"
+          type="checkbox"
+          defaultChecked={this.isSelected}
+          defaultValue={item.name}
+          onChange={this.handleClick} />
+          {item.name}
+        </li>
     )
   }
 }
 
 export default connect(
   state => {
-    console.log('LIST', state.countries);
     return {
       items: state.countries.items || [],
-      visited: state.countries.visited || []
+      visited: state.countries.visited || ['Brazil'],
+      count: (state.countries.visited || ['Brazil']).length
     }
   }
-)(Item);
+)(Items);
