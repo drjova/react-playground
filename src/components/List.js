@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import {
   addCountry,
-  removeCountry
+  removeCountry,
+  filterCountries
 } from '../actions/count';
 
 class Items extends Component {
@@ -17,6 +18,10 @@ class Items extends Component {
     this.props.dispatch(params);
   }
 
+  filterCountries(filter) {
+    this.props.dispatch(filterCountries(filter));
+  }
+
   isChecked(value) {
     return this.props.visited.indexOf(value) > -1;
   }
@@ -26,6 +31,13 @@ class Items extends Component {
     return (
       <div>
         <h2>{count}</h2>
+        <ul>
+        <li><a href="#" onClick={() => {this.filterCountries('all')}}>All</a></li>
+        <li><a href="#" onClick={() => {this.filterCountries('Asia')}}>Asia</a></li>
+        <li><a href="#" onClick={() => {this.filterCountries('Africa')}}>Africa</a></li>
+        <li><a href="#" onClick={() => {this.filterCountries('Americas')}}>Americas</a></li>
+        <li><a href="#" onClick={() => {this.filterCountries('Europe')}}>Europe</a></li>
+        </ul>
         <ul>
           {items.map((item, i) =>
             <Item isChecked={this.isChecked(item.name)} trigger={this.triggerClick} item={item} key={item.name} />
@@ -67,12 +79,21 @@ class Item extends Component {
   }
 }
 
+const getVisibleCountries = (countries, filter) => {
+  switch (filter) {
+    case 'all':
+      return countries;
+    default:
+      return countries.filter(c => c.region == filter);
+  }
+}
+
 export default connect(
   state => {
     return {
-      items: state.countries.items || [],
-      visited: state.countries.visited || ['Brazil'],
-      count: (state.countries.visited || ['Brazil']).length
+      items: getVisibleCountries(state.countries.items || [], state.countries.filterCountries || 'all'),
+      visited: state.countries.visited || [],
+      count: (state.countries.visited || []).length
     }
   }
 )(Items);

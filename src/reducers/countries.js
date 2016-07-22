@@ -2,7 +2,8 @@ import {
   ADD_COUNTRY,
   RECEIVE_COUNTRIES,
   REMOVE_COUNTRY,
-  REQUEST_COUNTRIES
+  REQUEST_COUNTRIES,
+  FILTER_COUNTRIES
 } from '../constants';
 
 
@@ -47,15 +48,29 @@ function userCountries(state={
   }
 }
 
+function filterCountries(state={
+  filterCountries: 'all'
+}, action) {
+  return {
+    filterCountries: action.filterCountries
+  };
+}
+
 export default function(state = {}, action) {
   switch(action.type){
-    case 'ADD_COUNTRY':
-    case 'REMOVE_COUNTRY':
+    case ADD_COUNTRY:
+    case REMOVE_COUNTRY:
       // FIXME
       return Object.assign(
         {},
         state,
         userCountries(state, action)
+      );
+    case FILTER_COUNTRIES:
+      return Object.assign(
+        {},
+        state,
+        filterCountries(state, action)
       );
     case RECEIVE_COUNTRIES:
     case REQUEST_COUNTRIES:

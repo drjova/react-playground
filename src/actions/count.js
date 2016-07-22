@@ -7,7 +7,8 @@ import {
   RECEIVE_COUNTRIES,
   REQUEST_COUNTRIES,
   ADD_COUNTRY,
-  REMOVE_COUNTRY
+  REMOVE_COUNTRY,
+  FILTER_COUNTRIES
 } from '../constants';
 
 
@@ -50,7 +51,6 @@ function shouldFetchCountries(state) {
   return false;
 }
 
-
 function fetchCountries() {
   return dispatch => {
     // Spread the news for requesting countries
@@ -67,6 +67,13 @@ export function getCountriesIfNeeded() {
     if (shouldFetchCountries(getState())){
       return dispatch(fetchCountries());
     }
+  };
+}
+
+export function filterCountries(filter) {
+  return {
+    type: FILTER_COUNTRIES,
+    filterCountries: filter
   };
 }
 
